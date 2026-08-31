@@ -8,6 +8,8 @@ const footer = () => {
         <div className="footer-container">
             <div className="left-half">
                 <div className="links">
+                    <Link href="#">Where we sell</Link>
+                    <Link href="#">What's new?</Link>
                     <Link href="#">About</Link>
                     <Link href="#">Contact</Link>
                     <Link href="#">Recipes</Link>
