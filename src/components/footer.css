@@ -1,0 +1,30 @@
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 50px;
+
+    .left-half {
+        display: flex;
+        width: 50vw;
+        justify-content: center;
+
+        .links{
+            display: flex;
+            gap: 50px;
+            justify-content: space-arounds;
+        }
+    }
+
+    .right-half {
+        display: flex;
+        width: 50vw;
+        justify-content: center;
+
+        .socials {
+            display: flex;
+            gap: 16px;
+        }
+    }
+
+}
