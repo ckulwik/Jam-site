@@ -1,9 +1,41 @@
-.header-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.fixed-to-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #ccc;
 
-    .cart{ 
-        width: 70px;
+    .header-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 60px;
+
+        .small-logo {
+            position: absolute;
+            left: 10px;
+
+            h1 {
+                font-family: 'Pacifico', cursive;
+                font-size: 24px;
+                color: #000000;
+                margin: 0;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .cart {
+            position: absolute;
+            width: 70px;
+            right: 10px;
+        }
     }
 }
