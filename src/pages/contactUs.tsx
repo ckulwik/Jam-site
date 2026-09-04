@@ -1,8 +1,9 @@
+import './page.css'
 
 const contactUsPage = () => {
     return (
         <div>
-            <h2>Contact Us</h2>
+            <h2 className="title">Contact Us</h2>
         </div>
     )
 }

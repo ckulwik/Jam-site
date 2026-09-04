@@ -1,8 +1,9 @@
+import './page.css'
 
 const recipesPage = () => {
     return (
         <div>
-            <h2>Recipes</h2>
+            <h2 className="title">Recipes</h2>
         </div>
     )
 }

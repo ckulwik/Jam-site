@@ -1,8 +1,9 @@
+import './page.css'
 
 const aboutPage = () => {
     return (
         <div>
-            <h2>About Us</h2>
+            <h2 className="title">About Us</h2>
         </div>
     )
 }

@@ -1,0 +1,18 @@
+.side-by-side {
+    display: flex;
+    gap: 1rem;
+
+    .right-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+.side-by-side img {
+    flex: 1;
+}
+
+.side-by-side div {
+    flex: 1;
+}

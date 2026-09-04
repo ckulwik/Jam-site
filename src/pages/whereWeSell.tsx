@@ -1,8 +1,9 @@
+import './page.css'
 
 const whereWeSellPage = () => {
     return (
         <div>
-            <h2>Where We Sell</h2>
+            <h2 className="title">Where We Sell</h2>
         </div>
     )
 }

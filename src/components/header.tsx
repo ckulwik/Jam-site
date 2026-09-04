@@ -1,10 +1,19 @@
 import { ShoppingCart } from "@mui/icons-material"
-import { Button, IconButton } from "@mui/material"
+import { Button, IconButton, Badge, badgeClasses, styled } from "@mui/material"
 import { Pages } from "../consts"
+import useShoppingCart from "../composibles/useShoppingCard"
 
 import './header.css'
 
 const header = ({ setCurrentPage }: { setCurrentPage: (page: Pages) => void }) => {
+    const { cart } = useShoppingCart();
+
+    const CartBadge = styled(Badge)`
+        & .${badgeClasses.badge} {
+            top: -12px;
+            right: -6px;
+        }
+    `;
     return (
         <div className="fixed-to-top">
             <header className="header-container">
@@ -33,9 +42,11 @@ const header = ({ setCurrentPage }: { setCurrentPage: (page: Pages) => void }) =
                     </Button>
                 </div>
 
+                {/* TODO shopping cart item number badge is not updating, I think it's because useShoppingCart is creating a new instance each time */}
                 <div className="cart">
                     <IconButton aria-label="shopping-cart" size="large">
                         <ShoppingCart fontSize="large" />
+                        <CartBadge badgeContent={cart.length} color="primary" overlap="circular" />
                     </IconButton>
                 </div>
             </header>

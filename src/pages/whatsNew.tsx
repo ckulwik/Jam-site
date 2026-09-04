@@ -1,8 +1,9 @@
+import './page.css'
 
 const whatsNewPage = () => {
     return (
         <div>
-            <h2>What's New</h2>
+            <h2 className="title">What's New</h2>
         </div>
     )
 }
