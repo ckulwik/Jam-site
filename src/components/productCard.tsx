@@ -1,16 +1,13 @@
 import { Button, Card, CardContent, CardMedia, CardActions, Typography } from "@mui/material"
-import type { Product } from "../consts";
-import useShoppingCart from "../composibles/useShoppingCard";
-import ProductInfoModal from "../pages/productInfoModal";
+import type { Product } from "../types";
+import ProductInfoModal from "./productInfoModal";
 import { useState } from "react";
 import Check from '@mui/icons-material/Check';
 
 
-const productCard = ({ product }: { product: Product }) => {
-    const { addToCart } = useShoppingCart();
+const ProductCard = ({ product, addToCart }: { product: Product, addToCart: (product: Product) => void }) => {
     const [open, setOpen] = useState(false);
 
-    const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
     return (
@@ -19,11 +16,11 @@ const productCard = ({ product }: { product: Product }) => {
                 <CardMedia
                     sx={{ height: 250 }}
                     image={product.img}
-                    title={product.title}
+                    title={product.name}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {product.title}
+                        {product.name}
                     </Typography>
                     <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                         ${product.price.toFixed(2)}
@@ -31,16 +28,12 @@ const productCard = ({ product }: { product: Product }) => {
                 </CardContent>
                 <CardActions>
                     <Button size="small" onClick={() => setOpen(true)}>Learn More</Button>
-                    <Button size="small" variant="contained" loading={loading} startIcon={success ? <Check /> : undefined} onClick={() => {
-                        setLoading(true);
-                        setTimeout(() => {
-                            addToCart(product);
-                            setLoading(false);
-                            setSuccess(true);
-                            setTimeout(() => setSuccess(false), 2000);
-                        }, 1000);
+                    <Button size="small" variant="contained" startIcon={success ? <Check /> : undefined} onClick={() => {
+                        addToCart(product);
+                        setSuccess(true);
+                        setTimeout(() => setSuccess(false), 2000);
                     }}>
-                        {success ? "Added" : "Add To Cart"}
+                        {success ? `${product.emoji1} Added ${product.emoji2}` : "Add To Cart"}
                     </Button>
                 </CardActions>
             </Card>
@@ -49,4 +42,4 @@ const productCard = ({ product }: { product: Product }) => {
     )
 }
 
-export default productCard;
+export default ProductCard;

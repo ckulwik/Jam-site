@@ -1,3 +1,5 @@
+import type { Product } from './types'
+
 export enum SocialSites {
     INSTAGRAM = "Instagram",
     FACEBOOK = "Facebook",
@@ -12,33 +14,33 @@ export enum Pages {
     RECIPES = "Recipes"
 }
 
-type Product = {
-    img: string,
-    title: string,
-    description: string
-    price: number
-}
+
 
 const products: Product[] = [
     {
         img: "https://www.placekittens.com/g/250/250",
-        title: "Triple Berry French Toast Jam",
+        name: "Triple Berry French Toast Jam",
         description: "insert description here",
-        price: 12
+        price: 12,
+        emoji1: '🍓',
+        emoji2: '🍁'
     },
     {
         img: "https://www.placekittens.com/g/250/250",
-        title: "Strawberry Margarita Jam",
+        name: "Strawberry Margarita Jam",
         description: "insert description here",
-        price: 10
+        price: 10,
+        emoji1: '🍓',
+        emoji2: '🍋‍🟩'
     },
     {
         img: "https://www.placekittens.com/g/250/250",
-        title: "Blueberry Lavender Lemonade Jam",
+        name: "Blueberry Lavender Lemonade Jam",
         description: "insert description here",
-        price: 10
+        price: 10,
+        emoji1: '🫐',
+        emoji2: '🪻'
     }
 ]
 
 export { products }
-export type { Product }

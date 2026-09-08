@@ -1,12 +1,18 @@
 import { ShoppingCart } from "@mui/icons-material"
-import { Button, IconButton, Badge, badgeClasses, styled } from "@mui/material"
+import { Button, IconButton, Badge, badgeClasses, styled, Drawer, Box } from "@mui/material"
 import { Pages } from "../consts"
-import useShoppingCart from "../composibles/useShoppingCard"
 
 import './header.css'
+import { useState } from "react"
+import CartDrawer from "./cartDrawer"
 
-const header = ({ setCurrentPage }: { setCurrentPage: (page: Pages) => void }) => {
-    const { cart } = useShoppingCart();
+const Header = ({ setCurrentPage, numItemsInCart, cart }: { setCurrentPage: (page: Pages) => void, numItemsInCart: number, cart: CartItem[] }) => {
+
+    const [openCartDrawer, setOpenCartDrawer] = useState(false);
+
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenCartDrawer(newOpen);
+    };
 
     const CartBadge = styled(Badge)`
         & .${badgeClasses.badge} {
@@ -42,16 +48,16 @@ const header = ({ setCurrentPage }: { setCurrentPage: (page: Pages) => void }) =
                     </Button>
                 </div>
 
-                {/* TODO shopping cart item number badge is not updating, I think it's because useShoppingCart is creating a new instance each time */}
                 <div className="cart">
-                    <IconButton aria-label="shopping-cart" size="large">
+                    <IconButton aria-label="shopping-cart" size="large" onClick={toggleDrawer(true)}>
                         <ShoppingCart fontSize="large" />
-                        <CartBadge badgeContent={cart.length} color="primary" overlap="circular" />
+                        <CartBadge badgeContent={numItemsInCart} color="primary" overlap="circular" />
                     </IconButton>
                 </div>
+                <CartDrawer open={openCartDrawer} onClose={toggleDrawer(false)} cart={cart} />
             </header>
         </div>
     )
 }
 
-export default header
+export default Header
