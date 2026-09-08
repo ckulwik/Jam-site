@@ -1,5 +1,5 @@
 import { ShoppingCart } from "@mui/icons-material"
-import { Button, IconButton, Badge, badgeClasses, styled, Drawer, Box } from "@mui/material"
+import { Button, IconButton, Badge, badgeClasses, styled } from "@mui/material"
 import { Pages } from "../consts"
 
 import './header.css'
