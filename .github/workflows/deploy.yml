@@ -1,0 +1,53 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy master (CD)
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow when a pull request is merged to master
+  pull_request:
+    types: [closed]
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions: 
+  id-token: write
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+
+      - name: Install
+        run: npm install
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload to S3
+        run: aws s3 sync ./build/ s3://bugandbeejamm.co --delete --acl public-read
+
+      - name: Refresh HTML cache on S3
+        run: aws s3 cp s3://bugandbeejamm.co/index.html s3://bugandbeejamm.co/index.html --metadata-directive REPLACE --cache-control "no-cache, no-store, must-revalidate" --content-type "text/html"
+
+      - name: Invalidate CloudFront cache
+        env:
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+
