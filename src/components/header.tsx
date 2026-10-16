@@ -5,6 +5,7 @@ import { Pages } from "../consts"
 import './header.css'
 import { useState } from "react"
 import CartDrawer from "./cartDrawer"
+import type { CartItem } from "../types"
 
 const Header = ({ setCurrentPage, numItemsInCart, cart }: { setCurrentPage: (page: Pages) => void, numItemsInCart: number, cart: CartItem[] }) => {
 
