@@ -34,17 +34,18 @@ jobs:
         run: npm run build
       
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::490315706174:role/S3-bucket-update
+          role-session-name: MySessionName
 
+# TODO rename the s3 bucket to be "bugandbeejamm.co" --> 2 m's
       - name: Upload to S3
-        run: aws s3 sync ./build/ s3://bugandbeejamm.co --delete --acl public-read
+        run: aws s3 sync ./build/ s3://bugandbeejam.co --delete --acl public-read
 
       - name: Refresh HTML cache on S3
-        run: aws s3 cp s3://bugandbeejamm.co/index.html s3://bugandbeejamm.co/index.html --metadata-directive REPLACE --cache-control "no-cache, no-store, must-revalidate" --content-type "text/html"
+        run: aws s3 cp s3://bugandbeejam.co/index.html s3://bugandbeejam.co/index.html --metadata-directive REPLACE --cache-control "no-cache, no-store, must-revalidate" --content-type "text/html"
 
       - name: Invalidate CloudFront cache
         env:
