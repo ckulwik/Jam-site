@@ -1,8 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy main (CD)
 
-# Controls when the action will run. 
 on:
   # Triggers the workflow when a pull request is merged to main
   pull_request:
@@ -16,27 +13,11 @@ permissions:
   id-token: write
   contents: read
 
-# jobs:
-#   run_job_with_aws:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Configure AWS Credentials
-#         uses: aws-actions/configure-aws-credentials@v6.3.0
-#         with:
-#           role-to-assume: <Role ARN you created in step 2>
-#           aws-region: <AWS Region you want to use>
-#       - name: Additional steps
-#         run: |
-#           # Your commands that require AWS credentials
-#           aws sts get-caller-identity
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v7
         with:
@@ -55,7 +36,7 @@ jobs:
           role-to-assume: arn:aws:iam::490315706174:role/S3-bucket-update
 
       - name: Upload to S3
-        run: aws s3 sync ./build/ s3://bugandbeejamm.co --delete --acl public-read
+        run: aws s3 sync ./dist/ s3://bugandbeejamm.co --delete --acl public-read
 
       - name: Refresh HTML cache on S3
         run: aws s3 cp s3://bugandbeejamm.co/index.html s3://bugandbeejamm.co/index.html --metadata-directive REPLACE --cache-control "no-cache, no-store, must-revalidate" --content-type "text/html"
