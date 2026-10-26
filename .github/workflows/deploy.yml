@@ -15,6 +15,20 @@ on:
 permissions: 
   id-token: write
 
+# jobs:
+#   run_job_with_aws:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v6.3.0
+#         with:
+#           role-to-assume: <Role ARN you created in step 2>
+#           aws-region: <AWS Region you want to use>
+#       - name: Additional steps
+#         run: |
+#           # Your commands that require AWS credentials
+#           aws sts get-caller-identity
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
@@ -38,7 +52,6 @@ jobs:
         with:
           aws-region: us-east-2
           role-to-assume: arn:aws:iam::490315706174:role/S3-bucket-update
-          role-session-name: MySessionName
 
       - name: Upload to S3
         run: aws s3 sync ./build/ s3://bugandbeejamm.co --delete --acl public-read
