@@ -33,7 +33,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
           aws-region: us-east-2
-          role-to-assume: arn:aws:iam::490315706174:role/S3-bucket-update
+          role-to-assume: arn:aws:iam::894258438834:role/JammSiteS3Update
 
       - name: Upload to S3
         run: aws s3 sync ./dist/ s3://bugandbeejamm.co --delete
